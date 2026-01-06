@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useCallback } from "react";
+import { useState, useRef, useCallback, useEffect } from "react";
 import { Position, DungeonNode } from "@/types/project";
 import { AnimationState } from "./useSpriteAnimation";
 
@@ -15,10 +15,10 @@ export const useCharacterMovement = ({
   nodes,
   onArrival,
 }: UseCharacterMovementProps) => {
-  const getNodePosition = (nodeId: string): Position => {
+  const getNodePosition = useCallback((nodeId: string): Position => {
     const node = nodes.find((n) => n.id === nodeId);
     return node?.position ?? { x: 10, y: 20 };
-  };
+  }, [nodes]);
 
   const [currentNodeId, setCurrentNodeId] = useState(initialNodeId);
   const [position, setPosition] = useState<Position>(() => getNodePosition(initialNodeId));
@@ -28,6 +28,14 @@ export const useCharacterMovement = ({
 
   const isMovingRef = useRef(false);
   const currentNodeRef = useRef(initialNodeId);
+
+  // 노드 레이아웃 변경 시 캐릭터 위치 업데이트
+  useEffect(() => {
+    if (!isMovingRef.current) {
+      const newPos = getNodePosition(currentNodeRef.current);
+      setPosition(newPos);
+    }
+  }, [nodes, getNodePosition]);
 
   // BFS to find path between nodes
   const findPath = useCallback((fromId: string, toId: string): string[] => {
