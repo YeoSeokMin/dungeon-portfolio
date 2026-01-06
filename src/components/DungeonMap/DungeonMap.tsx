@@ -97,22 +97,28 @@ export const DungeonMap = () => {
         {/* Paths */}
         {isMobile ? (
           // 모바일: 세로 직선 (박스 중앙 통과, 애니메이션)
-          <svg
-            className="absolute inset-0 w-full h-full pointer-events-none z-0"
-            viewBox="0 0 100 100"
-            preserveAspectRatio="none"
+          <div
+            className="absolute pointer-events-none z-0"
+            style={{
+              left: `${currentNodes[0].position.x}%`,
+              top: `${currentNodes[0].position.y}%`,
+              height: `${currentNodes[currentNodes.length - 1].position.y - currentNodes[0].position.y}%`,
+              transform: "translateX(-50%)",
+            }}
           >
-            <line
-              x1={currentNodes[0].position.x}
-              y1={currentNodes[0].position.y}
-              x2={currentNodes[currentNodes.length - 1].position.x}
-              y2={currentNodes[currentNodes.length - 1].position.y}
-              stroke="rgba(234, 179, 8, 0.4)"
-              strokeWidth="0.2"
-              strokeDasharray="0.5 0.25"
-              className="dungeon-path"
-            />
-          </svg>
+            <svg width="6" height="100%" style={{ overflow: "visible" }}>
+              <line
+                x1="3"
+                y1="0"
+                x2="3"
+                y2="100%"
+                stroke="rgba(234, 179, 8, 0.4)"
+                strokeWidth="3"
+                strokeDasharray="8 4"
+                className="dungeon-path"
+              />
+            </svg>
+          </div>
         ) : (
           <Path nodes={currentNodes} />
         )}
