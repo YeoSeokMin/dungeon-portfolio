@@ -13,8 +13,8 @@ import { BossRoom } from "@/components/BossRoom";
 
 // 모바일용 세로 배치 위치 생성
 const getMobileNodes = (nodes: DungeonNode[]): DungeonNode[] => {
-  const startY = 6; // 시작 위치
-  const spacing = 9; // 노드 간격 (촘촘하게)
+  const startY = 12; // 시작 위치 (제목 아래로)
+  const spacing = 7; // 노드 간격
   return nodes.map((node, index) => ({
     ...node,
     position: {
