@@ -100,7 +100,7 @@ export const DungeonMap = () => {
           <div
             className="absolute pointer-events-none z-0"
             style={{
-              left: "50%",
+              left: "52.5%",
               top: `${10}%`,
               height: `${81}%`,
               transform: "translateX(-50%)",
@@ -127,7 +127,7 @@ export const DungeonMap = () => {
         {currentNodes.map((node, index) => (
           <Node
             key={node.id}
-            node={node}
+            node={isMobile ? { ...node, position: { ...node.position, x: 41 } } : node}
             isActive={currentNodeId === node.id}
             isVisited={visitedNodes.has(node.id)}
             onClick={() => handleNodeClick(node)}
