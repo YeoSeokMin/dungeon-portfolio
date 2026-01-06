@@ -13,11 +13,13 @@ import { BossRoom } from "@/components/BossRoom";
 
 // 모바일용 세로 배치 위치 생성
 const getMobileNodes = (nodes: DungeonNode[]): DungeonNode[] => {
+  const startY = 6; // 시작 위치
+  const spacing = 11; // 노드 간격 (더 넓게)
   return nodes.map((node, index) => ({
     ...node,
     position: {
       x: 50, // 가운데 정렬
-      y: 8 + index * 9, // 세로로 균등 배치
+      y: startY + index * spacing, // 세로로 여유있게 배치
     },
   }));
 };
@@ -81,7 +83,7 @@ export const DungeonMap = () => {
       <ParallaxBackground />
 
       {/* Map Container */}
-      <div className={`relative w-full z-20 ${isMobile ? 'h-[1000px]' : 'h-full'}`}>
+      <div className={`relative w-full z-20 ${isMobile ? 'h-[1600px]' : 'h-full'}`}>
         {/* Title */}
         <div className="absolute top-6 left-1/2 -translate-x-1/2 z-30 text-center">
           <h1 className="font-pixel text-lg md:text-xl lg:text-2xl text-yellow-500 text-shadow-gold">
@@ -94,13 +96,13 @@ export const DungeonMap = () => {
 
         {/* Paths */}
         {isMobile ? (
-          // 모바일: 세로 직선
+          // 모바일: 세로 직선 (첫 노드 ~ 마지막 노드 중앙 통과)
           <svg className="absolute inset-0 w-full h-full pointer-events-none z-0">
             <line
               x1="50%"
-              y1="10%"
+              y1={`${currentNodes[0].position.y + 3}%`}
               x2="50%"
-              y2="90%"
+              y2={`${currentNodes[currentNodes.length - 1].position.y + 3}%`}
               stroke="rgba(234, 179, 8, 0.3)"
               strokeWidth="3"
               strokeDasharray="8 4"

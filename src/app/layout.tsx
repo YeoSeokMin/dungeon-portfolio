@@ -22,10 +22,25 @@ export const metadata: Metadata = {
   title: "Dungeon Portfolio | 던전 탐험형 개발자 포트폴리오",
   description: "8개 프로젝트를 던전 맵 형태로 시각화한 인터랙티브 포트폴리오",
   keywords: ["포트폴리오", "개발자", "프론트엔드", "React", "Next.js"],
+  metadataBase: new URL("https://dungeon-portfolio-iota.vercel.app"),
   openGraph: {
     title: "Dungeon Portfolio",
-    description: "던전 탐험형 개발자 포트폴리오",
+    description: "던전 탐험형 개발자 포트폴리오 - Click Room to Explore",
     type: "website",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Dungeon Portfolio",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Dungeon Portfolio",
+    description: "던전 탐험형 개발자 포트폴리오",
+    images: ["/og-image.png"],
   },
 };
 

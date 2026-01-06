@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Project } from "@/types/project";
 import { CompanyProject } from "./CompanyProject";
@@ -19,6 +20,17 @@ interface ProjectModalProps {
 
 export const ProjectModal = ({ isOpen, onClose, project }: ProjectModalProps) => {
   const isPersonal = project.type === "personal";
+
+  // ESC 키로 모달 닫기
+  useEffect(() => {
+    const handleEsc = (e: KeyboardEvent) => {
+      if (e.key === "Escape" && isOpen) {
+        onClose();
+      }
+    };
+    window.addEventListener("keydown", handleEsc);
+    return () => window.removeEventListener("keydown", handleEsc);
+  }, [isOpen, onClose]);
 
   return (
     <AnimatePresence>
