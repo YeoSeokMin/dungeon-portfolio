@@ -127,7 +127,7 @@ export const DungeonMap = () => {
         {currentNodes.map((node, index) => (
           <Node
             key={node.id}
-            node={node}
+            node={isMobile ? { ...node, position: { ...node.position, x: 50 } } : node}
             isActive={currentNodeId === node.id}
             isVisited={visitedNodes.has(node.id)}
             onClick={() => handleNodeClick(node)}
