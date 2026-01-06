@@ -31,7 +31,7 @@ export const ParallaxBackground = () => {
   }, [mouseX, mouseY]);
 
   return (
-    <div className="absolute inset-0 overflow-hidden">
+    <div className="absolute inset-0 overflow-hidden z-0">
       {Array.from({ length: PARALLAX_CONFIG.layers }).map((_, index) => {
         const speed = PARALLAX_CONFIG.speeds[index];
         const layerNum = index + 1;
@@ -57,20 +57,11 @@ export const ParallaxBackground = () => {
         );
       })}
 
-      {/* Fog overlay */}
-      <div
-        className="absolute inset-0 fog-effect pointer-events-none"
-        style={{
-          background: "linear-gradient(180deg, transparent 0%, rgba(10, 10, 15, 0.3) 50%, rgba(10, 10, 15, 0.6) 100%)",
-          zIndex: 9,
-        }}
-      />
-
-      {/* Vignette */}
+      {/* Vignette - subtle edge darkening only */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
-          background: "radial-gradient(ellipse at center, transparent 30%, rgba(0, 0, 0, 0.7) 100%)",
+          background: "radial-gradient(ellipse at center, transparent 50%, rgba(0, 0, 0, 0.4) 100%)",
           zIndex: 10,
         }}
       />

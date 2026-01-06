@@ -58,7 +58,7 @@ export const DungeonMap = () => {
       <ParallaxBackground />
 
       {/* Map Container */}
-      <div className="relative w-full h-full z-10">
+      <div className="relative w-full h-full z-20">
         {/* Title */}
         <div className="absolute top-6 left-1/2 -translate-x-1/2 z-30 text-center">
           <h1 className="font-medieval text-3xl md:text-4xl lg:text-5xl text-yellow-500 text-shadow-gold">

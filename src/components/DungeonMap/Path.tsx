@@ -1,5 +1,6 @@
 "use client";
 
+import React from "react";
 import { DungeonNode } from "@/types/project";
 
 interface PathProps {
@@ -32,7 +33,7 @@ export const Path = ({ nodes }: PathProps) => {
   };
 
   const renderedPaths = new Set<string>();
-  const paths: JSX.Element[] = [];
+  const paths: React.ReactElement[] = [];
 
   nodes.forEach((node) => {
     node.connections.forEach((connectionId) => {
