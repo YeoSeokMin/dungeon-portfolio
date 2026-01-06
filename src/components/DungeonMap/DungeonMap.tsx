@@ -96,13 +96,13 @@ export const DungeonMap = () => {
 
         {/* Paths */}
         {isMobile ? (
-          // 모바일: 세로 직선 (정중앙, 애니메이션)
+          // 모바일: 세로 직선 (박스 중앙에 맞춤, 애니메이션)
           <div
             className="absolute pointer-events-none z-0"
             style={{
-              left: "50%",
+              left: "calc(50% + 32px)",
               top: `${6}%`,
-              height: `${6 + 9 * 11 - 6}%`,
+              height: `${99}%`,
               transform: "translateX(-50%)",
             }}
           >
