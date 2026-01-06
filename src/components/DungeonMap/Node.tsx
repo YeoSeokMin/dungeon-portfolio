@@ -94,7 +94,7 @@ export const Node = ({ node, isActive, isVisited, onClick, index }: NodeProps) =
         <FontAwesomeIcon
           icon={iconMap[node.icon] || faQuestion}
           className={`
-            text-xl md:text-2xl lg:text-3xl mb-1
+            text-3xl md:text-2xl lg:text-3xl mb-1
             ${isBoss
               ? "text-red-500"
               : isPersonal
@@ -107,7 +107,7 @@ export const Node = ({ node, isActive, isVisited, onClick, index }: NodeProps) =
         />
         <span
           className={`
-            font-pixel-kr text-[8px] md:text-[10px] lg:text-xs text-center px-1 leading-tight
+            font-pixel-kr text-[10px] md:text-[10px] lg:text-xs text-center px-1 leading-tight
             ${isBoss ? "text-red-400" : "text-gray-200"}
           `}
         >
