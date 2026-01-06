@@ -100,7 +100,7 @@ export const DungeonMap = () => {
           <div
             className="absolute pointer-events-none z-0"
             style={{
-              left: "41%",
+              left: "48%",
               top: `${6}%`,
               height: `${99}%`,
               transform: "translateX(-50%)",
