@@ -8,26 +8,53 @@ interface PathProps {
 }
 
 export const Path = ({ nodes }: PathProps) => {
+  // 노드 박스 중앙
   const getNodeCenter = (node: DungeonNode) => ({
     x: node.position.x,
-    y: node.position.y,
+    y: node.position.y + 5,
   });
 
   const renderPath = (from: DungeonNode, to: DungeonNode, index: number) => {
     const start = getNodeCenter(from);
     const end = getNodeCenter(to);
 
+    // 수평 이동인지 수직 이동인지 확인
+    const isHorizontal = Math.abs(start.y - end.y) < 10;
+    const isVertical = Math.abs(start.x - end.x) < 10;
+
+    // 직선 (수평 또는 수직)
+    if (isHorizontal || isVertical) {
+      return (
+        <line
+          key={`${from.id}-${to.id}-${index}`}
+          x1={`${start.x}%`}
+          y1={`${start.y}%`}
+          x2={`${end.x}%`}
+          y2={`${end.y}%`}
+          className="dungeon-path"
+          stroke="rgba(234, 179, 8, 0.4)"
+          strokeWidth="3"
+          strokeLinecap="round"
+        />
+      );
+    }
+
+    // 대각선인 경우 → ㄱ 또는 ㄴ 형태로 꺾어서 중앙 통과
+    // 먼저 수직 이동 후 수평 이동 (또는 반대)
+    const midY = (start.y + end.y) / 2;
+
     return (
-      <line
+      <path
         key={`${from.id}-${to.id}-${index}`}
-        x1={`${start.x}%`}
-        y1={`${start.y}%`}
-        x2={`${end.x}%`}
-        y2={`${end.y}%`}
+        d={`M ${start.x}% ${start.y}%
+            L ${start.x}% ${midY}%
+            L ${end.x}% ${midY}%
+            L ${end.x}% ${end.y}%`}
         className="dungeon-path"
         stroke="rgba(234, 179, 8, 0.4)"
         strokeWidth="3"
         strokeLinecap="round"
+        fill="none"
       />
     );
   };

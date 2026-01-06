@@ -1,6 +1,14 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Noto+Sans+KR:wght@400;700&display=swap');
 @import "tailwindcss";
 @import "aos/dist/aos.css";
 @import "animate.css";
+
+/* 영문 픽셀 폰트 크기 조정 버전 */
+@font-face {
+  font-family: 'Press Start 2P Small';
+  src: url('https://fonts.gstatic.com/s/pressstart2p/v15/e3t4euO8T-267oIAQAu6jDQyK3nVivM.woff2') format('woff2');
+  size-adjust: 65%;
+}
 
 :root {
   --background: #0a0a0f;
@@ -176,10 +184,61 @@ body {
   border-color: var(--gold);
 }
 
-/* Title Font */
+/* Pixel Font - 영문 전용 */
+.font-pixel {
+  font-family: 'Press Start 2P', cursive;
+}
+
+/* 한글+영문 혼합 (영문 픽셀 작게, 한글 Noto 유지) */
+.font-pixel-kr {
+  font-family: 'Press Start 2P Small', 'Noto Sans KR', sans-serif;
+  font-weight: 700;
+}
+
+/* Title Font - pixel style */
 .font-medieval {
-  font-family: 'Cinzel', 'MedievalSharp', serif;
+  font-family: 'Press Start 2P', cursive;
   letter-spacing: 0.05em;
+}
+
+/* Pixel UI Elements */
+.pixel-border {
+  border: 4px solid;
+  border-image: linear-gradient(45deg, #eab308, #ca9a06) 1;
+  image-rendering: pixelated;
+}
+
+.pixel-box {
+  background: rgba(10, 10, 15, 0.9);
+  border: 3px solid #eab308;
+  box-shadow:
+    inset 0 0 0 1px #ca9a06,
+    4px 4px 0 rgba(0, 0, 0, 0.5);
+}
+
+.pixel-btn {
+  font-family: 'Press Start 2P', cursive;
+  font-size: 0.6rem;
+  padding: 8px 16px;
+  background: linear-gradient(180deg, #eab308 0%, #ca9a06 100%);
+  color: #0a0a0f;
+  border: none;
+  box-shadow:
+    0 4px 0 #8b7206,
+    0 6px 0 rgba(0, 0, 0, 0.3);
+  transition: all 0.1s;
+}
+
+.pixel-btn:hover {
+  transform: translateY(2px);
+  box-shadow:
+    0 2px 0 #8b7206,
+    0 3px 0 rgba(0, 0, 0, 0.3);
+}
+
+.pixel-btn:active {
+  transform: translateY(4px);
+  box-shadow: none;
 }
 
 /* Vignette Effect */

@@ -61,11 +61,11 @@ export const DungeonMap = () => {
       <div className="relative w-full h-full z-20">
         {/* Title */}
         <div className="absolute top-6 left-1/2 -translate-x-1/2 z-30 text-center">
-          <h1 className="font-medieval text-3xl md:text-4xl lg:text-5xl text-yellow-500 text-shadow-gold">
+          <h1 className="font-pixel text-lg md:text-xl lg:text-2xl text-yellow-500 text-shadow-gold">
             DUNGEON PORTFOLIO
           </h1>
-          <p className="text-gray-400 text-sm md:text-base mt-2">
-            방을 클릭하여 탐험하세요
+          <p className="font-pixel text-gray-400 text-[8px] md:text-[10px] mt-3">
+            CLICK ROOM TO EXPLORE
           </p>
         </div>
 
@@ -93,39 +93,39 @@ export const DungeonMap = () => {
         />
 
         {/* Legend */}
-        <div className="absolute bottom-6 left-6 z-30 bg-black/60 p-4 rounded-lg border border-yellow-600/30">
-          <h3 className="text-yellow-500 font-bold mb-2 text-sm">범례</h3>
-          <div className="space-y-1 text-xs">
+        <div className="absolute bottom-6 left-6 z-30 pixel-box p-4">
+          <h3 className="text-yellow-500 font-pixel mb-3 text-[8px]">LEGEND</h3>
+          <div className="space-y-2">
             <div className="flex items-center gap-2">
-              <div className="w-3 h-3 rounded bg-green-500/50 border border-green-500" />
-              <span className="text-gray-300">입구</span>
+              <div className="w-3 h-3 bg-green-500/50 border-2 border-green-500" />
+              <span className="text-gray-300 font-pixel-kr text-sm">입구</span>
             </div>
             <div className="flex items-center gap-2">
-              <div className="w-3 h-3 rounded bg-yellow-500/50 border border-yellow-600" />
-              <span className="text-gray-300">회사 프로젝트</span>
+              <div className="w-3 h-3 bg-yellow-500/50 border-2 border-yellow-600" />
+              <span className="text-gray-300 font-pixel-kr text-sm">회사</span>
             </div>
             <div className="flex items-center gap-2">
-              <div className="w-3 h-3 rounded bg-purple-500/50 border border-purple-500" />
-              <span className="text-gray-300">개인 프로젝트</span>
+              <div className="w-3 h-3 bg-purple-500/50 border-2 border-purple-500" />
+              <span className="text-gray-300 font-pixel-kr text-sm">개인</span>
             </div>
             <div className="flex items-center gap-2">
-              <div className="w-3 h-3 rounded bg-red-500/50 border border-red-500" />
-              <span className="text-gray-300">보스방</span>
+              <div className="w-3 h-3 bg-red-500/50 border-2 border-red-500" />
+              <span className="text-gray-300 font-pixel text-[8px]">BOSS</span>
             </div>
           </div>
         </div>
 
         {/* Progress indicator */}
-        <div className="absolute bottom-6 right-6 z-30 bg-black/60 p-4 rounded-lg border border-yellow-600/30">
-          <div className="text-yellow-500 font-bold text-sm mb-1">탐험 진행도</div>
-          <div className="w-32 h-2 bg-gray-800 rounded-full overflow-hidden">
+        <div className="absolute bottom-6 right-6 z-30 pixel-box p-4">
+          <div className="text-yellow-500 font-pixel text-[8px] mb-2">PROGRESS</div>
+          <div className="w-32 h-3 bg-gray-900 border-2 border-gray-700">
             <div
-              className="h-full bg-gradient-to-r from-yellow-600 to-yellow-400 transition-all duration-500"
+              className="h-full bg-yellow-500 transition-all duration-500"
               style={{ width: `${(visitedNodes.size / dungeonNodes.length) * 100}%` }}
             />
           </div>
-          <div className="text-xs text-gray-400 mt-1">
-            {visitedNodes.size} / {dungeonNodes.length} 방 탐험
+          <div className="text-[8px] font-pixel text-gray-400 mt-2">
+            {visitedNodes.size}/{dungeonNodes.length} ROOM
           </div>
         </div>
       </div>

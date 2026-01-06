@@ -72,24 +72,29 @@ export const Node = ({ node, isActive, isVisited, onClick, index }: NodeProps) =
         className={`
           relative flex flex-col items-center justify-center
           w-16 h-16 md:w-20 md:h-20 lg:w-24 lg:h-24
-          rounded-lg border-2
+          border-4
           transition-all duration-300
           ${isBoss
-            ? "border-red-500 bg-red-950/50"
+            ? "border-red-500 bg-red-950/80"
             : isPersonal
-              ? "border-purple-500 bg-purple-950/50"
+              ? "border-purple-500 bg-purple-950/80"
               : isEntrance
-                ? "border-green-500 bg-green-950/50"
-                : "border-yellow-600 bg-yellow-950/50"
+                ? "border-green-500 bg-green-950/80"
+                : "border-yellow-600 bg-yellow-950/80"
           }
           ${isActive ? "glow-gold-strong" : ""}
           ${isVisited && !isActive ? "opacity-80" : ""}
         `}
+        style={{
+          boxShadow: isActive
+            ? `0 0 20px ${isBoss ? 'rgba(239,68,68,0.6)' : 'rgba(234,179,8,0.6)'}`
+            : '4px 4px 0 rgba(0,0,0,0.5)',
+        }}
       >
         <FontAwesomeIcon
           icon={iconMap[node.icon] || faQuestion}
           className={`
-            text-2xl md:text-3xl lg:text-4xl mb-1
+            text-xl md:text-2xl lg:text-3xl mb-1
             ${isBoss
               ? "text-red-500"
               : isPersonal
@@ -102,7 +107,7 @@ export const Node = ({ node, isActive, isVisited, onClick, index }: NodeProps) =
         />
         <span
           className={`
-            text-xs md:text-sm font-bold text-center px-1
+            font-pixel-kr text-[8px] md:text-[10px] lg:text-xs text-center px-1 leading-tight
             ${isBoss ? "text-red-400" : "text-gray-200"}
           `}
         >
@@ -112,16 +117,13 @@ export const Node = ({ node, isActive, isVisited, onClick, index }: NodeProps) =
         {/* Glow ring effect */}
         <div
           className={`
-            absolute inset-0 rounded-lg
+            absolute inset-0
             ${isActive ? "animate-ping opacity-20" : "opacity-0"}
             ${isBoss ? "bg-red-500" : "bg-yellow-500"}
           `}
           style={{ animationDuration: "2s" }}
         />
       </div>
-
-      {/* Node connector dots */}
-      <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-2 h-2 rounded-full bg-gray-600" />
     </motion.div>
   );
 };

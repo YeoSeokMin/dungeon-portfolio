@@ -203,11 +203,16 @@ export const projects: Project[] = [
   }
 ];
 
+// 프로젝트 ID로 찾기 헬퍼
+const getProject = (id: string) => projects.find(p => p.id === id) || null;
+
+// ㄹ형 배치 - 뱀처럼 3줄 지그재그
 export const dungeonNodes: DungeonNode[] = [
+  // ===== 1층 (왼쪽 → 오른쪽) =====
   {
     id: "entrance",
     project: null,
-    position: { x: 10, y: 20 },
+    position: { x: 15, y: 18 },
     icon: "fa-door-open",
     label: "입구",
     connections: ["sanghyun"],
@@ -215,8 +220,8 @@ export const dungeonNodes: DungeonNode[] = [
   },
   {
     id: "sanghyun",
-    project: projects.find(p => p.id === "sanghyun")!,
-    position: { x: 25, y: 20 },
+    project: getProject("sanghyun"),
+    position: { x: 40, y: 18 },
     icon: "fa-building",
     label: "상현컴퍼니",
     connections: ["entrance", "dental"],
@@ -224,17 +229,18 @@ export const dungeonNodes: DungeonNode[] = [
   },
   {
     id: "dental",
-    project: projects.find(p => p.id === "dental")!,
-    position: { x: 40, y: 20 },
+    project: getProject("dental"),
+    position: { x: 65, y: 18 },
     icon: "fa-tooth",
     label: "덴탈비서",
     connections: ["sanghyun", "wisecare"],
     type: "company"
   },
+  // ===== 2층 (오른쪽 → 왼쪽) =====
   {
     id: "wisecare",
-    project: projects.find(p => p.id === "wisecare")!,
-    position: { x: 55, y: 20 },
+    project: getProject("wisecare"),
+    position: { x: 65, y: 45 },
     icon: "fa-credit-card",
     label: "와이즈케어",
     connections: ["dental", "twave"],
@@ -242,8 +248,8 @@ export const dungeonNodes: DungeonNode[] = [
   },
   {
     id: "twave",
-    project: projects.find(p => p.id === "twave")!,
-    position: { x: 70, y: 35 },
+    project: getProject("twave"),
+    position: { x: 40, y: 45 },
     icon: "fa-comment-sms",
     label: "TwaveSMS",
     connections: ["wisecare", "casebid"],
@@ -251,17 +257,18 @@ export const dungeonNodes: DungeonNode[] = [
   },
   {
     id: "casebid",
-    project: projects.find(p => p.id === "casebid")!,
-    position: { x: 55, y: 50 },
+    project: getProject("casebid"),
+    position: { x: 15, y: 45 },
     icon: "fa-gavel",
     label: "CaseBid",
     connections: ["twave", "dailyapp"],
     type: "personal"
   },
+  // ===== 3층 (왼쪽 → 오른쪽) =====
   {
     id: "dailyapp",
-    project: projects.find(p => p.id === "dailyapp")!,
-    position: { x: 40, y: 65 },
+    project: getProject("dailyapp"),
+    position: { x: 15, y: 72 },
     icon: "fa-mobile-screen",
     label: "DailyApp",
     connections: ["casebid", "autokakao"],
@@ -269,8 +276,8 @@ export const dungeonNodes: DungeonNode[] = [
   },
   {
     id: "autokakao",
-    project: projects.find(p => p.id === "autokakao")!,
-    position: { x: 25, y: 65 },
+    project: getProject("autokakao"),
+    position: { x: 40, y: 72 },
     icon: "fa-robot",
     label: "AutoKakao",
     connections: ["dailyapp", "ddugddag"],
@@ -278,8 +285,8 @@ export const dungeonNodes: DungeonNode[] = [
   },
   {
     id: "ddugddag",
-    project: projects.find(p => p.id === "ddugddag")!,
-    position: { x: 10, y: 50 },
+    project: getProject("ddugddag"),
+    position: { x: 65, y: 72 },
     icon: "fa-hospital",
     label: "뚝딱",
     connections: ["autokakao", "boss"],
@@ -288,7 +295,7 @@ export const dungeonNodes: DungeonNode[] = [
   {
     id: "boss",
     project: null,
-    position: { x: 10, y: 80 },
+    position: { x: 85, y: 72 },
     icon: "fa-question",
     label: "???",
     connections: ["ddugddag"],
