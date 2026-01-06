@@ -13,8 +13,8 @@ import { BossRoom } from "@/components/BossRoom";
 
 // 모바일용 세로 배치 위치 생성
 const getMobileNodes = (nodes: DungeonNode[]): DungeonNode[] => {
-  const startY = 7; // 시작 위치 (제목 아래로)
-  const spacing = 9; // 노드 간격
+  const startY = 10; // 시작 위치 (제목 아래로)
+  const spacing = 10; // 노드 간격
   return nodes.map((node, index) => ({
     ...node,
     position: {
@@ -83,7 +83,7 @@ export const DungeonMap = () => {
       <ParallaxBackground />
 
       {/* Map Container */}
-      <div className={`relative w-full z-20 ${isMobile ? 'h-[1200px]' : 'h-full'}`}>
+      <div className={`relative w-full z-20 ${isMobile ? 'h-[1600px]' : 'h-full'}`}>
         {/* Title */}
         <div className="absolute top-6 left-1/2 -translate-x-1/2 z-30 text-center">
           <h1 className="font-pixel text-lg md:text-xl lg:text-2xl text-yellow-500 text-shadow-gold">
@@ -101,7 +101,7 @@ export const DungeonMap = () => {
             className="absolute pointer-events-none z-0"
             style={{
               left: "52.5%",
-              top: `${7}%`,
+              top: `${10}%`,
               height: `${81}%`,
               transform: "translateX(-50%)",
             }}

@@ -8,9 +8,9 @@ export const ParallaxBackground = () => {
         className="absolute inset-0"
         style={{
           backgroundImage: "url(/assets/background/layer1.png)",
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          backgroundRepeat: "no-repeat",
+          backgroundSize: "100% auto",
+          backgroundPosition: "top center",
+          backgroundRepeat: "repeat-y",
         }}
       />
 
