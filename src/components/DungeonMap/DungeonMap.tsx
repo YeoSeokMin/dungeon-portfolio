@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import { dungeonNodes } from "@/data/projects";
 import { DungeonNode } from "@/types/project";
 import { useCharacterMovement } from "@/hooks/useCharacterMovement";
@@ -11,16 +11,39 @@ import { ParallaxBackground } from "./ParallaxBackground";
 import { ProjectModal } from "@/components/ProjectModal";
 import { BossRoom } from "@/components/BossRoom";
 
+// 모바일용 세로 배치 위치 생성
+const getMobileNodes = (nodes: DungeonNode[]): DungeonNode[] => {
+  return nodes.map((node, index) => ({
+    ...node,
+    position: {
+      x: 50, // 가운데 정렬
+      y: 8 + index * 9, // 세로로 균등 배치
+    },
+  }));
+};
+
 export const DungeonMap = () => {
   const [selectedNode, setSelectedNode] = useState<DungeonNode | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isBossModalOpen, setIsBossModalOpen] = useState(false);
   const [visitedNodes, setVisitedNodes] = useState<Set<string>>(new Set(["entrance"]));
+  const [isMobile, setIsMobile] = useState(false);
+
+  // 화면 크기 감지
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
+
+  // 현재 레이아웃에 맞는 노드
+  const currentNodes = isMobile ? getMobileNodes(dungeonNodes) : dungeonNodes;
 
   const handleArrival = useCallback((nodeId: string) => {
     setVisitedNodes((prev) => new Set([...prev, nodeId]));
 
-    const node = dungeonNodes.find((n) => n.id === nodeId);
+    const node = currentNodes.find((n) => n.id === nodeId);
     if (node) {
       setSelectedNode(node);
       if (node.type === "boss") {
@@ -29,12 +52,12 @@ export const DungeonMap = () => {
         setIsModalOpen(true);
       }
     }
-  }, []);
+  }, [currentNodes]);
 
   const { currentNodeId, position, isMoving, animationState, facingDirection, moveToNode } =
     useCharacterMovement({
       initialNodeId: "entrance",
-      nodes: dungeonNodes,
+      nodes: currentNodes,
       onArrival: handleArrival,
     });
 
@@ -53,12 +76,12 @@ export const DungeonMap = () => {
   }, []);
 
   return (
-    <div className="relative w-full h-screen overflow-hidden">
+    <div className={`relative w-full ${isMobile ? 'min-h-screen overflow-y-auto' : 'h-screen overflow-hidden'}`}>
       {/* Parallax Background */}
       <ParallaxBackground />
 
       {/* Map Container */}
-      <div className="relative w-full h-full z-20">
+      <div className={`relative w-full z-20 ${isMobile ? 'h-[1000px]' : 'h-full'}`}>
         {/* Title */}
         <div className="absolute top-6 left-1/2 -translate-x-1/2 z-30 text-center">
           <h1 className="font-pixel text-lg md:text-xl lg:text-2xl text-yellow-500 text-shadow-gold">
@@ -70,10 +93,25 @@ export const DungeonMap = () => {
         </div>
 
         {/* Paths */}
-        <Path nodes={dungeonNodes} />
+        {isMobile ? (
+          // 모바일: 세로 직선
+          <svg className="absolute inset-0 w-full h-full pointer-events-none z-0">
+            <line
+              x1="50%"
+              y1="10%"
+              x2="50%"
+              y2="90%"
+              stroke="rgba(234, 179, 8, 0.3)"
+              strokeWidth="3"
+              strokeDasharray="8 4"
+            />
+          </svg>
+        ) : (
+          <Path nodes={currentNodes} />
+        )}
 
         {/* Nodes */}
-        {dungeonNodes.map((node, index) => (
+        {currentNodes.map((node, index) => (
           <Node
             key={node.id}
             node={node}
@@ -93,7 +131,7 @@ export const DungeonMap = () => {
         />
 
         {/* Legend */}
-        <div className="absolute bottom-6 left-6 z-30 pixel-box p-4">
+        <div className={`${isMobile ? 'fixed' : 'absolute'} bottom-6 left-6 z-30 pixel-box p-4`}>
           <h3 className="text-yellow-500 font-pixel mb-3 text-[8px]">LEGEND</h3>
           <div className="space-y-2">
             <div className="flex items-center gap-2">
@@ -116,16 +154,16 @@ export const DungeonMap = () => {
         </div>
 
         {/* Progress indicator */}
-        <div className="absolute bottom-6 right-6 z-30 pixel-box p-4">
+        <div className={`${isMobile ? 'fixed' : 'absolute'} bottom-6 right-6 z-30 pixel-box p-4`}>
           <div className="text-yellow-500 font-pixel text-[8px] mb-2">PROGRESS</div>
           <div className="w-32 h-3 bg-gray-900 border-2 border-gray-700">
             <div
               className="h-full bg-yellow-500 transition-all duration-500"
-              style={{ width: `${(visitedNodes.size / dungeonNodes.length) * 100}%` }}
+              style={{ width: `${(visitedNodes.size / currentNodes.length) * 100}%` }}
             />
           </div>
           <div className="text-[8px] font-pixel text-gray-400 mt-2">
-            {visitedNodes.size}/{dungeonNodes.length} ROOM
+            {visitedNodes.size}/{currentNodes.length} ROOM
           </div>
         </div>
       </div>

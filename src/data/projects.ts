@@ -185,7 +185,7 @@ export const projects: Project[] = [
   },
   {
     id: "ddugddag",
-    name: "뚝딱",
+    name: "뉴스타솔루션",
     period: "2025.09 ~ 현재",
     duration: "진행중",
     type: "company",
@@ -288,7 +288,7 @@ export const dungeonNodes: DungeonNode[] = [
     project: getProject("ddugddag"),
     position: { x: 65, y: 72 },
     icon: "fa-hospital",
-    label: "뚝딱",
+    label: "뉴스타",
     connections: ["autokakao", "boss"],
     type: "company"
   },
