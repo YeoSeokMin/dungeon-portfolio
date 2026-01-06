@@ -1,26 +1,220 @@
 @import "tailwindcss";
+@import "aos/dist/aos.css";
+@import "animate.css";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #0a0a0f;
+  --background-secondary: #1a1a2e;
+  --foreground: #e5e5e5;
+  --gold: #eab308;
+  --gold-dark: #ca9a06;
+  --red: #dc2626;
+  --red-dark: #b91c1c;
+  --glow-gold: 0 0 10px rgba(234, 179, 8, 0.4), 0 0 20px rgba(234, 179, 8, 0.2), 0 0 30px rgba(234, 179, 8, 0.1);
+  --glow-gold-strong: 0 0 15px rgba(234, 179, 8, 0.6), 0 0 30px rgba(234, 179, 8, 0.4), 0 0 45px rgba(234, 179, 8, 0.2);
+  --glow-red: 0 0 10px rgba(220, 38, 38, 0.4), 0 0 20px rgba(220, 38, 38, 0.2), 0 0 30px rgba(220, 38, 38, 0.1);
+  --glow-red-strong: 0 0 15px rgba(220, 38, 38, 0.6), 0 0 30px rgba(220, 38, 38, 0.4), 0 0 45px rgba(220, 38, 38, 0.2);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --color-gold: var(--gold);
+  --color-red: var(--red);
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Noto Sans KR', Arial, Helvetica, sans-serif;
+  overflow-x: hidden;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--background);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--background-secondary);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--gold-dark);
+}
+
+/* Glow Effects - Regular CSS classes */
+.glow-gold {
+  box-shadow: var(--glow-gold);
+}
+
+.glow-gold-strong {
+  box-shadow: var(--glow-gold-strong);
+}
+
+.glow-red {
+  box-shadow: var(--glow-red);
+}
+
+.glow-red-strong {
+  box-shadow: var(--glow-red-strong);
+}
+
+.text-shadow-gold {
+  text-shadow: 0 0 10px rgba(234, 179, 8, 0.5), 0 0 20px rgba(234, 179, 8, 0.3);
+}
+
+.text-shadow-red {
+  text-shadow: 0 0 10px rgba(220, 38, 38, 0.5), 0 0 20px rgba(220, 38, 38, 0.3);
+}
+
+/* Dungeon Node Styles */
+.dungeon-node {
+  position: relative;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.dungeon-node:hover {
+  box-shadow: var(--glow-gold);
+  transform: scale(1.1);
+}
+
+.dungeon-node.boss:hover {
+  box-shadow: var(--glow-red);
+}
+
+.dungeon-node.active {
+  box-shadow: var(--glow-gold-strong);
+}
+
+/* Path Animation */
+.dungeon-path {
+  stroke-dasharray: 8 4;
+  animation: dash 20s linear infinite;
+}
+
+@keyframes dash {
+  to {
+    stroke-dashoffset: -1000;
+  }
+}
+
+/* Pulse Animation for Boss Room */
+@keyframes pulse-glow {
+  0%, 100% {
+    opacity: 1;
+    box-shadow: 0 0 15px rgba(220, 38, 38, 0.6), 0 0 30px rgba(220, 38, 38, 0.4);
+  }
+  50% {
+    opacity: 0.7;
+    box-shadow: 0 0 25px rgba(220, 38, 38, 0.8), 0 0 50px rgba(220, 38, 38, 0.5);
+  }
+}
+
+.boss-room {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+/* Character Sprite Animation */
+.character-sprite {
+  image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: crisp-edges;
+}
+
+/* Walking animation using CSS steps() */
+@keyframes sprite-walk {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: -576px 0; /* 32px * 6frames * 3scale = 576px */
+  }
+}
+
+.character-sprite.walking {
+  animation: sprite-walk 0.5s steps(6) infinite;
+}
+
+/* Parallax Background */
+.parallax-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  background-repeat: repeat-x;
+}
+
+/* Modal Overlay */
+.modal-overlay {
+  backdrop-filter: blur(4px);
+  background: rgba(10, 10, 15, 0.85);
+}
+
+/* Tech Badge */
+.tech-badge {
+  padding: 0.25rem 0.75rem;
+  font-size: 0.875rem;
+  border-radius: 9999px;
+  border: 1px solid rgba(234, 179, 8, 0.3);
+  transition: all 0.2s ease;
+  background: rgba(26, 26, 46, 0.8);
+  color: var(--gold);
+}
+
+.tech-badge:hover {
+  box-shadow: var(--glow-gold);
+  border-color: var(--gold);
+}
+
+/* Title Font */
+.font-medieval {
+  font-family: 'Cinzel', 'MedievalSharp', serif;
+  letter-spacing: 0.05em;
+}
+
+/* Vignette Effect */
+.vignette {
+  position: relative;
+}
+
+.vignette::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  background: radial-gradient(ellipse at center, transparent 40%, rgba(0, 0, 0, 0.6) 100%);
+}
+
+/* Fog Effect */
+@keyframes fog-drift {
+  0% { transform: translateX(0); }
+  50% { transform: translateX(-5%); }
+  100% { transform: translateX(0); }
+}
+
+.fog-effect {
+  animation: fog-drift 30s ease-in-out infinite;
+  opacity: 0.3;
+}
+
+/* Button hover effects */
+.github-btn:hover {
+  box-shadow: var(--glow-gold);
+}
+
+.contact-btn:hover {
+  box-shadow: var(--glow-red);
 }

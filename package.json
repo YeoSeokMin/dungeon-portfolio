@@ -9,6 +9,16 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^7.1.0",
+    "@fortawesome/free-brands-svg-icons": "^7.1.0",
+    "@fortawesome/free-solid-svg-icons": "^7.1.0",
+    "@fortawesome/react-fontawesome": "^3.1.1",
+    "animate.css": "^4.1.1",
+    "aos": "^2.3.4",
+    "framer-motion": "^12.24.0",
+    "gsap": "^3.14.2",
+    "lottie-react": "^2.4.1",
+    "mermaid": "^11.12.2",
     "next": "16.1.1",
     "react": "19.2.3",
     "react-dom": "19.2.3"
