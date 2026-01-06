@@ -15,10 +15,10 @@ export const useCharacterMovement = ({
   nodes,
   onArrival,
 }: UseCharacterMovementProps) => {
-  const getNodePosition = useCallback((nodeId: string): Position => {
+  const getNodePosition = (nodeId: string): Position => {
     const node = nodes.find((n) => n.id === nodeId);
     return node?.position ?? { x: 10, y: 20 };
-  }, [nodes]);
+  };
 
   const [currentNodeId, setCurrentNodeId] = useState(initialNodeId);
   const [position, setPosition] = useState<Position>(() => getNodePosition(initialNodeId));
@@ -28,14 +28,17 @@ export const useCharacterMovement = ({
 
   const isMovingRef = useRef(false);
   const currentNodeRef = useRef(initialNodeId);
+  const prevNodesRef = useRef<string>("");
 
   // 노드 레이아웃 변경 시 캐릭터 위치 업데이트
   useEffect(() => {
-    if (!isMovingRef.current) {
+    const nodesKey = nodes.map(n => `${n.id}:${n.position.x}:${n.position.y}`).join(",");
+    if (prevNodesRef.current !== nodesKey && !isMovingRef.current) {
+      prevNodesRef.current = nodesKey;
       const newPos = getNodePosition(currentNodeRef.current);
       setPosition(newPos);
     }
-  }, [nodes, getNodePosition]);
+  });
 
   // BFS to find path between nodes
   const findPath = useCallback((fromId: string, toId: string): string[] => {
