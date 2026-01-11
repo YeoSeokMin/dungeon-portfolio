@@ -114,33 +114,36 @@ export const projects: Project[] = [
     period: "2024년 말 ~ 2025년 초",
     duration: "개인 프로젝트",
     type: "personal",
-    summary: "iOS/Android 신규 앱을 자동 수집하고 Claude AI로 분석하여 매일 인사이트 제공",
+    summary: "iOS/Android 신규 앱을 자동 수집하고 Claude AI로 시장성을 분석하여 인디 개발자와 창업자에게 '지금 만들 만한 앱 아이디어'를 매일 큐레이션",
     role: "풀스택 개발",
     techStack: {
-      frontend: ["Next.js 16", "React 19", "TypeScript", "Tailwind CSS", "Pusher.js"],
-      backend: ["Next.js API Routes", "Node.js", "Anthropic SDK (Claude AI)"],
+      frontend: ["Next.js 16", "React 19", "TypeScript", "Tailwind CSS v4", "Pusher.js"],
+      backend: ["Next.js API Routes", "Node.js", "Anthropic SDK (claude-sonnet-4)"],
       database: ["Vercel KV (Redis)", "Vercel Blob"],
-      infra: ["Vercel", "Pusher (WebSocket)", "Kakao Talk API"]
+      infra: ["Vercel (ISR 60초)", "GitHub Actions (일일 자동화)", "Pusher (WebSocket)", "Kakao Talk API"]
     },
     highlights: [
-      "일일 자동 앱 수집 파이프라인 (iOS/Android)",
-      "Claude AI 기반 8가지 지표 앱 분석",
-      "Pusher 실시간 익명 채팅",
-      "0.1% 확률 룰렛 광고 시스템",
-      "카카오톡 일일 리포트 알림"
+      "매일 iOS 5개 + Android 5개 유망 앱 자동 선정",
+      "14개 모듈 동적 프롬프트 시스템 (카테고리별 자동 조합)",
+      "멀티 레이어 분석 파이프라인 (수집→기본분석→심층분석→트렌드→알림)",
+      "품질 보증 시스템 (자동 품질 점수 + 신뢰도 태그)",
+      "7일 히스토리 기반 트렌드 감지 (AI/AR/핀테크 등)",
+      "Pusher 실시간 익명 채팅 + 카카오톡 일일 리포트"
     ],
     hasArchitecture: true,
     architecture: {
       client: "Next.js App Router, ISR (60초 재검증), 레트로 픽셀 UI",
-      server: "Next.js API Routes (Serverless), Node.js 스크립트 (수집/분석)",
+      server: "Next.js API Routes (Serverless), Node.js 스크립트 (수집/분석 자동화)",
       database: "Vercel KV (채팅, 룰렛 상태), Vercel Blob (광고 이미지)",
       auth: "IP 해시 기반 접근 제어 (SHA256, 익명성 보호)",
-      deploy: "Vercel (프로덕션)",
+      deploy: "Vercel (프로덕션), GitHub Actions (일일 자동화)",
       special: [
-        "createPortal로 룰렛 모달 구현 (z-index 충돌 방지)",
+        "14개 모듈 동적 프롬프트 시스템 (base/core + biz/user/market + game/fintech/social + korea + output)",
+        "품질 보증: 완성도 40% + 구체성 40% + 실행가능성 20%, 미달 시 재분석",
+        "신뢰도 태그 필수: [확인] 90%↑ / [추론] 60-90% / [추측] 60%↓",
+        "Hybrid 스크래핑 (iOS: app-store-scraper, Android: AppBrain + google-play-scraper)",
         "채팅 이중화 (Pusher + 폴링 백업)",
-        "Claude AI 프롬프트 엔지니어링 (구조화된 JSON)",
-        "중복 분석 방지 (최근 7일 리포트 앱 제외)"
+        "createPortal로 룰렛 모달 구현 (z-index 충돌 방지)"
       ]
     },
     liveUrl: "https://web-ten-delta-23.vercel.app"
