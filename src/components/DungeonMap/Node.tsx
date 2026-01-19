@@ -13,6 +13,7 @@ import {
   faRobot,
   faHospital,
   faQuestion,
+  faBroadcastTower,
   IconDefinition,
 } from "@fortawesome/free-solid-svg-icons";
 import { DungeonNode } from "@/types/project";
@@ -36,6 +37,7 @@ const iconMap: Record<string, IconDefinition> = {
   "fa-robot": faRobot,
   "fa-hospital": faHospital,
   "fa-question": faQuestion,
+  "fa-broadcast-tower": faBroadcastTower,
 };
 
 export const Node = ({ node, isActive, isVisited, onClick, index }: NodeProps) => {

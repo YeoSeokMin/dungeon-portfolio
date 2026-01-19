@@ -78,12 +78,12 @@ export const DungeonMap = () => {
   }, []);
 
   return (
-    <div className={`relative w-full ${isMobile ? 'min-h-screen overflow-y-auto' : 'h-screen overflow-hidden'}`}>
+    <div className={`relative w-full ${isMobile ? 'h-[2000px] pb-[450px] overflow-y-auto' : 'h-screen overflow-hidden'}`}>
       {/* Parallax Background */}
       <ParallaxBackground />
 
       {/* Map Container */}
-      <div className={`relative w-full z-20 ${isMobile ? 'h-[1600px]' : 'h-full'}`}>
+      <div className={`relative w-full z-20 h-full`}>
         {/* Title */}
         <div className="absolute top-6 left-1/2 -translate-x-1/2 z-30 text-center">
           <h1 className="font-pixel text-lg md:text-xl lg:text-2xl text-yellow-500 text-shadow-gold">
@@ -102,7 +102,7 @@ export const DungeonMap = () => {
             style={{
               left: "52.5%",
               top: `${10}%`,
-              height: `${81}%`,
+              height: `${100}%`,
               transform: "translateX(-50%)",
             }}
           >

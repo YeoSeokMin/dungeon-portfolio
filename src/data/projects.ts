@@ -182,7 +182,7 @@ export const projects: Project[] = [
         "LoRA 파인튜닝으로 개인 말투 재현",
         "감정 분석기로 상황별 톤 자동 조절",
         "100개+ Few-shot 프롬프트",
-        "익명/판타지/DC 모드 지원"
+        "익명/판타지/친구 모드 지원"
       ]
     }
   },
@@ -203,6 +203,45 @@ export const projects: Project[] = [
       "전자결재 UI/UX 개선"
     ],
     hasArchitecture: false
+  },
+  {
+    id: "aifeed",
+    name: "aiFeed",
+    period: "2025년 초",
+    duration: "개인 프로젝트",
+    type: "personal",
+    summary: "AI/바이브코딩 뉴스를 7개 소스에서 자동 수집하고 AI로 가치 평가 후 Meta Threads에 최적 시간대 자동 게시하는 완전 자동화 뉴스 파이프라인",
+    role: "풀스택 개발",
+    techStack: {
+      backend: ["Node.js 20", "ES Module"],
+      database: ["File-based Storage (JSON)"],
+      infra: ["node-cron (스케줄러)", "Puppeteer", "Discord Webhook", "Kakao Talk API"],
+      ai: ["Claude CLI (Sonnet)"]
+    },
+    highlights: [
+      "7개 뉴스 소스 통합 (RSS, 블로그, Reddit, Twitter/Nitter, GitHub, HackerNews, 개발자 커뮤니티)",
+      "2단계 뉴스 가치 평가 (휴리스틱 사전 필터 → AI 심층 분석)",
+      "5가지 콘텐츠 포맷 자동 생성 (기본형/질문형/비교형/한줄요약/늦은뉴스)",
+      "최적 시간대 자동 게시 큐 시스템 (9시/12시/18시/21시)",
+      "3단계 중복 감지 (ID 매칭 + 배치 중복 + 유사도 70% 검사)",
+      "Discord 실시간 알림 + 일일 리포트 자동 발송"
+    ],
+    hasArchitecture: true,
+    architecture: {
+      client: "CLI 전용 (GUI 없음), Discord/카카오톡 알림으로 상태 모니터링",
+      server: "Node.js ES Module, 6개 스케줄 작업 (수집 30분/게시 4회/리포트/토큰갱신)",
+      database: "JSON 파일 저장소 (posts.json, queue.json, stats.json), 48시간 데이터 보관",
+      auth: "Meta Threads API (60일 토큰 자동 갱신), Discord Webhook",
+      deploy: "로컬 서버 상시 실행, node-cron 기반 24/7 자동화",
+      special: [
+        "7개 수집 모듈: RSS (OpenAI/Vercel) + 블로그 스크래핑 (AI 플랫폼 5곳) + Reddit (5개 서브레딧) + Twitter (Nitter 로테이션) + GitHub Trending + HackerNews (200점+) + 개발자 커뮤니티",
+        "뉴스 점수 시스템: 90+ 즉시게시 / 70-89 최우선 / 40-69 일반 / 20-39 저우선 / 0-19 스킵",
+        "토큰 효율화: 휴리스틱 사전 필터링 → 상위 25개만 AI 평가, RSS만 유사도 검사, 배치당 최대 5개 심층 분석",
+        "185개 AI 키워드 분류 (회사/코딩AI/로컬/오픈소스/일반/바이브코딩)",
+        "Threads API 2단계 게시 (미디어 컨테이너 생성 → 발행)",
+        "동시 실행 방지 (runningTasks 플래그), 일 최대 5개 게시 하드캡"
+      ]
+    }
   }
 ];
 
@@ -292,16 +331,25 @@ export const dungeonNodes: DungeonNode[] = [
     position: { x: 65, y: 72 },
     icon: "fa-hospital",
     label: "뉴스타",
-    connections: ["autokakao", "boss"],
+    connections: ["autokakao", "aifeed"],
     type: "company"
+  },
+  {
+    id: "aifeed",
+    project: getProject("aifeed"),
+    position: { x: 80, y: 72 },
+    icon: "fa-broadcast-tower",
+    label: "aiFeed",
+    connections: ["ddugddag", "boss"],
+    type: "personal"
   },
   {
     id: "boss",
     project: null,
-    position: { x: 85, y: 72 },
+    position: { x: 80, y: 45 },
     icon: "fa-question",
     label: "???",
-    connections: ["ddugddag"],
+    connections: ["aifeed"],
     type: "boss"
   }
 ];

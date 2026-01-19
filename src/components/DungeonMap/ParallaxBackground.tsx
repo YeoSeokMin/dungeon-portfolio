@@ -2,15 +2,16 @@
 
 export const ParallaxBackground = () => {
   return (
-    <div className="absolute inset-0 z-0">
+    <div className="absolute inset-0 z-0 w-full h-full">
       {/* Main background */}
       <div
-        className="absolute inset-0"
+        className="absolute inset-0 w-full h-full"
         style={{
           backgroundImage: "url(/assets/background/layer1.png)",
           backgroundSize: "cover",
-          backgroundPosition: "top center",
-          backgroundRepeat: "no-repeat",
+          backgroundPosition: "center",
+          backgroundRepeat: "repeat-y",
+          minHeight: "100%",
         }}
       />
       {/* 아래쪽 배경 연장 */}
